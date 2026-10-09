@@ -4,8 +4,9 @@
 namespace davinci {
 constexpr bool driveVerified = true; // Enable board M_L/M_R for a raised-wheel direction test.
 constexpr bool mechanismsVerified = false;
-constexpr bool leftFlipped = true; // Curriculum example; verify wheels raised.
-constexpr bool rightFlipped = false;
+// Both sides needed reverse output in the USB bench test after the wiring swap.
+constexpr bool leftFlipped = false;
+constexpr bool rightFlipped = true;
 constexpr int armPort = -1; // Physical servo port 1..4
 constexpr int grabberPort = -1;
 constexpr float armMin = -1, armMax = -1;

@@ -48,9 +48,9 @@ No STAR/APEX presets are invented before verifying mechanical reach.
 
 1. Lift all wheels clear of the ground and secure the robot. With the controller
    on channel 11, start this TeleOp and tap A once. Verify both wheels spin
-   forward and stop within about half a second. The left-flipped setting follows
-   the curriculum example, not a measurement of this robot. Stop the OpMode
-   before lowering the robot.
+   forward and stop within about half a second. Both motor directions were
+   corrected after the four-wheel USB bench test. Stop the OpMode before
+   lowering the robot.
 2. Identify arm/grabber servo ports 1–4. Support the arm before energizing or
    stopping; STOP detaches servos and removes holding torque.
 3. Measure safe angle limits, stow, pickup, travel, high, grab-open and
@@ -63,6 +63,7 @@ No STAR/APEX presets are invented before verifying mechanical reach.
    precision, each preset, macro cancel, official STOP and link loss.
    Link loss latches this OpMode off until an explicit restart.
 
-This drive-only build was uploaded to the robot on COM15, and the flash hash was
-verified. Wheel direction and physical motion have not yet been tested. The
-controller and robot use channel 11.
+This build was uploaded to the robot on COM15 and its flash hash was verified.
+All four wheels spun forward in a separate USB bench test after the wiring swap.
+The controller-driven A pulse and radio reliability still need physical testing.
+The controller and robot use channel 11.
