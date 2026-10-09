@@ -14,4 +14,7 @@ constexpr float grabMin = -1, grabMax = -1, grabOpen = -1, grabClosed = -1;
 constexpr unsigned closeWaitMs = 0, releaseWaitMs = 0; // Measure loaded travel times.
 constexpr float normalSpeed = 0.25f, precisionSpeed = 0.15f;
 constexpr float deadzone = 0.08f;
+constexpr bool benchMode = true; // A button: brief drive pulse; no stick control.
+constexpr uint32_t benchPulseMs = 400;
+constexpr float benchMotorPower = 0.15f;
 }

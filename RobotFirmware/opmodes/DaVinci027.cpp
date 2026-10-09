@@ -49,7 +49,8 @@ class DaVinci027 : public NRLOpMode {
     Macro macro = Macro::Idle;
     uint32_t since = 0;
     bool running = false, driveReady = false, mechanismsReady = false;
-    bool neutralSeen = false, open = false, fault = false;
+    bool neutralSeen = false, open = false, fault = false, pulseRunning = false;
+    uint32_t pulseSince = 0;
 
     void cancelMacro() { macro = Macro::Idle; cancelActions(); }
     void halt() {
@@ -57,6 +58,7 @@ class DaVinci027 : public NRLOpMode {
         if (left.isReady()) left.stop();
         if (right.isReady()) right.stop();
         if (driveReady) drive.stop();
+        pulseRunning = false;
         if (arm.isReady()) arm.detach();
         if (grabber.isReady()) grabber.detach();
         running = false;
@@ -65,7 +67,7 @@ class DaVinci027 : public NRLOpMode {
 public:
     void init() override {
         // Pure state only: no begin(), attach(), PWM or servo commands in INIT.
-        running = driveReady = mechanismsReady = neutralSeen = open = fault = false;
+        running = driveReady = mechanismsReady = neutralSeen = open = fault = pulseRunning = false;
         macro = Macro::Idle;
         telemetry.addData("setup", davinci::driveVerified ? "CHECKED" : "CONFIG REQUIRED");
     }
@@ -88,6 +90,23 @@ public:
         if (!running) return;
         // Latch a link fault: no resumed motion or macro after reconnection.
         if (NRLComms::isInputStale()) { fault = true; halt(); return; }
+        if (davinci::benchMode) {
+            if (gamepad1.pressed(BTN_Y)) {
+                if (driveReady) drive.stop();
+                pulseRunning = false;
+            } else if (driveReady && gamepad1.justPressed(BTN_A) && !pulseRunning) {
+                drive.setScale(davinci::benchMotorPower);
+                drive.drive(1.0f, 0.0f);
+                pulseSince = millis();
+                pulseRunning = true;
+            }
+            if (pulseRunning && uint32_t(millis() - pulseSince) >= davinci::benchPulseMs) {
+                drive.stop();
+                pulseRunning = false;
+            }
+            telemetry.addData("bench", pulseRunning ? "MOTORS ON" : "A: PULSE");
+            return;
+        }
         if (!std::isfinite(gamepad1.leftY()) || !std::isfinite(gamepad1.rightX())) {
             fault = true; halt(); return;
         }

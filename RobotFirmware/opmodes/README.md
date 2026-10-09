@@ -15,9 +15,9 @@ for another team's similar symptoms.
 
 ## Current status
 
-Drive output is enabled at 25% for a raised-wheel direction test. Hold RT to
-drive; releasing RT stops both motors. Arm and grabber remain disabled because
-servo limits and loaded movement times have not been supplied.
+Bench mode is active. One press of A commands both drive motors forward at
+15% for 400 ms, then stops automatically. No joystick input is needed.
+The arm and grabber remain disabled because servo limits are unmeasured.
 Only team code in this folder has been edited after project generation.
 
 The live Programming Curriculum Module 3.2 documents TankDrive, left Y forward,
@@ -30,8 +30,8 @@ Competition-rule compliance and hardware behavior still require verification.
 
 | Control | Behavior after configuration |
 |---|---|
-| Hold RT + left Y / right X | Forward / turn on tank drivetrain (25%) |
-| Hold RT + LB | 15% precision speed |
+| A (one tap) | Forward drive at 15% for 400 ms, then stop |
+| Y | Cancel a running pulse immediately |
 | D-pad down / up | Pickup / high arm position |
 | D-pad left / right | Stow / travel arm position |
 | X | Toggle grabber |
@@ -47,10 +47,10 @@ No STAR/APEX presets are invented before verifying mechanical reach.
 ## Hardware setup
 
 1. Lift all wheels clear of the ground and secure the robot. With the controller
-   on channel 11, start this TeleOp, release all controls, then hold RT and
-   nudge left Y forward. Verify both wheels move forward. The left-flipped
-   setting follows the curriculum example, not a measurement of this robot.
-   Release RT to stop. Stop the OpMode before lowering the robot.
+   on channel 11, start this TeleOp and tap A once. Verify both wheels spin
+   forward and stop within about half a second. The left-flipped setting follows
+   the curriculum example, not a measurement of this robot. Stop the OpMode
+   before lowering the robot.
 2. Identify arm/grabber servo ports 1–4. Support the arm before energizing or
    stopping; STOP detaches servos and removes holding torque.
 3. Measure safe angle limits, stow, pickup, travel, high, grab-open and
