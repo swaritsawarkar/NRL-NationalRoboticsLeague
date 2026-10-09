@@ -103,8 +103,13 @@ public:
             return;
         }
         if (driveReady) {
-            drive.setScale(gamepad1.pressed(BTN_LB) ? davinci::precisionSpeed : davinci::normalSpeed);
-            drive.drive(forward, turn);
+            // Hold RT to permit motion. Releasing it stops both motors immediately.
+            if (gamepad1.pressed(BTN_RT)) {
+                drive.setScale(gamepad1.pressed(BTN_LB) ? davinci::precisionSpeed : davinci::normalSpeed);
+                drive.drive(forward, turn);
+            } else {
+                drive.stop();
+            }
         }
         if (mechanismsReady) {
             // Direct commands take precedence and cancel any delayed return.

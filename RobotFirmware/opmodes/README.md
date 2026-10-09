@@ -15,8 +15,9 @@ for another team's similar symptoms.
 
 ## Current status
 
-Hardware outputs are disabled. This is intentional: actual wiring, motor
-directions, servo limits and loaded movement times have not been supplied.
+Drive output is enabled at 25% for a raised-wheel direction test. Hold RT to
+drive; releasing RT stops both motors. Arm and grabber remain disabled because
+servo limits and loaded movement times have not been supplied.
 Only team code in this folder has been edited after project generation.
 
 The live Programming Curriculum Module 3.2 documents TankDrive, left Y forward,
@@ -29,8 +30,8 @@ Competition-rule compliance and hardware behavior still require verification.
 
 | Control | Behavior after configuration |
 |---|---|
-| Left Y / right X | Forward / turn on tank drivetrain |
-| Hold LB | 35% precision speed; normal speed is 75% |
+| Hold RT + left Y / right X | Forward / turn on tank drivetrain (25%) |
+| Hold RT + LB | 15% precision speed |
 | D-pad down / up | Pickup / high arm position |
 | D-pad left / right | Stow / travel arm position |
 | X | Toggle grabber |
@@ -45,9 +46,11 @@ No STAR/APEX presets are invented before verifying mechanical reach.
 
 ## Hardware setup
 
-1. Identify the physical M_L/M_R connections and verify direction with wheels
-   raised. The left-flipped setting follows the curriculum example, not a
-   measurement of this robot. Enable `driveVerified` only after checking it.
+1. Lift all wheels clear of the ground and secure the robot. With the controller
+   on channel 11, start this TeleOp, release all controls, then hold RT and
+   nudge left Y forward. Verify both wheels move forward. The left-flipped
+   setting follows the curriculum example, not a measurement of this robot.
+   Release RT to stop. Stop the OpMode before lowering the robot.
 2. Identify arm/grabber servo ports 1–4. Support the arm before energizing or
    stopping; STOP detaches servos and removes holding torque.
 3. Measure safe angle limits, stow, pickup, travel, high, grab-open and
@@ -60,6 +63,6 @@ No STAR/APEX presets are invented before verifying mechanical reach.
    precision, each preset, macro cancel, official STOP and link loss.
    Link loss latches this OpMode off until an explicit restart.
 
-No firmware has been uploaded to hardware by this task. Flash the robot only
-after confirming the board and safe bench setup. Use the generated project's
-official controller flasher and select channel 11 on the controller.
+This drive-only build was uploaded to the robot on COM15, and the flash hash was
+verified. Wheel direction and physical motion have not yet been tested. The
+controller and robot use channel 11.
